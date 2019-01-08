@@ -1,0 +1,72 @@
+In this chapter, We will present brief taxonomy on the ESR's project with focus on WP 2.3. This is done in Table 3.1 which summarizes Chapter 1 and 2. Next, we will discuss the compatibility of ESR's project (WP 2.3) with AM3, AM4, AM5 and AM6. In the final section of this chapter, we will propose some open questions and future research line.
+
+\section {Uncertainty and Robust Optimization}
+
+Table 3.1 reports major uncertainty types (Section 1.2) alongside their behaviour (Section 1.3) , their mathematical representation (Section 1.4) and algorithmic methodologies employed for Robust Optimization. The first column refers to the type of Uncertainty i.e. A-E. The second column describes the behaviour of such uncertainties and classifies them into stationary or non-stationary. The third column also describes the behaviour of uncertainties on much more philosophical terms i.e. Aleatory and Epistemic as denoted by A and E respectively. The fourth column reads the mathematical representation used to describe such uncertainties i.e. Possibilistically, Deterministically and Probabilistically as represented by PS, DE and PR correspondingly. The second last column explains the major algorithmic methodologies employed for Robust Optimization in the presence of uncertainty i.e. Mathematical Programming and Direct Search Methods as represented by MP and DSM respectively. Finally, the last column reports some famous work to deal with each uncertainty type. In the next section, we will evaluate the compatibility of AM3, AM4, AM5 and AM6.  
+
+\begin{table}
+\begin{center}
+ \begin{tabular}{||c|| c ||c|| c|| c|| c||} 
+ \hline
+ Type & S/NS  & A/E & Representation & Major Techniques & References \\ [0.5ex] 
+ \hline\hline
+ A & Both & \textbf{A},E  & PS,DE, \textbf{PR} & MP,\textbf{DSM} & [1][7][58][9][23][65] \\ 
+ \hline
+ B & Both &  A,E &\textbf{PS},\textbf{DE}, \textbf{PR}  & MP, \textbf{DSM} & [1][7][23][65][29-32][17]\\
+ \hline
+ C & Both & A,E & \textbf{PS},\textbf{DE}, \textbf{PR}  & DSM & [9][23][1][7][17]\\
+ \hline
+ D & S & E & PS,\textbf{DE}  & \textbf{MP} , DSM & [24][1][7][16][13-17]  \\
+ \hline
+ E & S & E & PS,\textbf{DE}  & \textbf{MP} , DSM & [1][7][17][21][23]  \\
+\end{tabular}
+\end{center}
+\caption{A brief taxonomy of Major Uncertainty types along side their mathematical representations and algorithmic schemes to minimize their effects.}
+\end{table}
+
+\section {Learning Material for ESR's Project}
+
+In this section, we evaluate the relevance of ESR's project (WP 2.3 only) with the learning material provided. The learning material discussed in this section comprises of AM3 \textbf{Machine Learning}, AM4 \textbf{Multiple-Criteria Optimization and Decision Analysis} , AM5 \textbf{Advances in Data Mining} and AM6 the \textbf{Evolutionary Algorithms}. As it can been seen from Chapter 1 and 2, AM5 is not directly linked to the ESR's project (WP 2.3) however it strongly relates to WP 3.2. Since concerned report focuses on WP 2.3, such relation is not investigated. However, it is clear that WP 2.3 is strongly connected to AM6 \textbf{Evolutionary Algorithms} [1-5][7][18][20][25-31][34-44][48-57]. This is also verified by Table 3.1 which includes DSM i.e. Direct Search Methods to handle almost all major types of uncertainty. The empirical investigations in [1] and [7] also conclude that Evolutionary Algorithms are indeed a reliable source to handle uncertainty and to find robust optima. This provides ESR with an interesting opportunity to extend the literature of \textbf{Evolutionary Algorithms for Robust Optimization} from trivial cases i.e. unconstrained single-objective real parameter optimization to more complex cases i.e. Multi-objective optimization. This will involve AM4 \textbf{Multiple-Criteria Optimization and Decision Analysis} [2-5] [19-20]. As such, it can be seen that AM4 and AM6 are strongly connected to ESR's future goals. Furthermore, investigations in [1],[6-7],[12],[17],[23-25],[33] and [46-47] report Meta-Modeling techniques as a decent algorithmic scheme to find Robust Optima. From that, it can be safely deduced that supervised Machine Learning (strongly related to AM3 \textbf{Machine Learning}) e.g. Polynomial Regression, Kriging, Neural Networks and Support Vector Machines might play an important role in ESR's investigations on WP 2.3. From the discussion in Chapter 1,2 and Table 3.1, it is thus safe to conclude that AM3, AM4 and AM6 are strongly related to the goals of the project and ESR must enhance the skill set in those areas. In the next section, we propose some interesting research questions. 
+
+\section {Research Questions}
+
+Based on the observations in [1] and [7], we propose some interesting research questions that can be coincided with the ESR's project goals. It is logical to assume that these questions are merely the tip of the iceberg and a series of more advanced questions and research line can be formulated. Some of these open questions are stated below.
+
+\begin{itemize}
+	\item Can the problem of finding optimal robust design be defined as multiple criteria decision problem? if so, in which situations? under what assumptions? Are the assumptions flexible? Can we model desired robustness measure as an additional constraint or objective? [1-5] [19-20]. 
+	
+	\item Can the type A and type B uncertainties be considered identical (e.g. Sensitivity Robustness) [7-8]? Discuss empirically the behavior of type A and type B uncertainties on a wide range of industrial problems to find the answer. 
+	
+	\item Can the type D and type E uncertainties be considered identical? Review literature to find the answer [9-12] [15][21-23].
+	
+	\item How to process the Type C uncertainties? The Operations-research and Engineering optimization do not discuss it in details. Combine literature from Statistics, Signal processing and Machine Learning to  discuss model uncertainty in Engineering? Is the idea of ensembling applicable to Engineering problems, what about model selection in Engineering optimization? Can we go beyond ensembling to process model uncertainty? [23].
+	
+	\item Is the idea of modelling uncertainty through Fuzzy-logic applicable anymore in Engineering problems? [13-15].
+	
+	\item Discuss direct-search methods for robust design optimization and compare them (already-existing) to find out their applicability in Engineering. What about their complexity and generalization? Which class(es) of uncertainty are these methods suited for? Discuss empirically and provide intuition for their working [1],[6-7],[12],[17],[23-25],[33] and [46-47]. 
+	
+	\item Are meta-modelling techniques a good solution to the problem of finding robust optimum? Their empirical investigation is missing from the literature. See [7, Section 4.2.2]
+	
+	\item The approach of Pattern-search methods [70] to find robust design optimum is missing from the literature. Discuss them, provide their working principle, intuition and investigate empirically if they can be a reliable approach to find robust design optimum. See [7, Section 4.2.2]
+	
+	\item Properties of Genetic Algorithms for Robust solution searching scheme [1][7][29][34-35] are not discussed theoretically and empirically in detail, discuss them in details. Is increasing the population size a step towards robustness? If so, verify that empirically and (if possible) theoretically.
+	
+	\item Discuss Evolution strategies for robust optimization for industrial problems. Provide a review of [1,7] for a range of industrial problems with special focus on $(\mu / \mu_{1}, \lambda)$-ES and $CMA$-ES. Compare ES with other direct search methods (overlap with previous Questions).
+	
+	\item There is a need for a set of scalable test functions and corresponding robust optimization problems that cold serves as a library for testing different optimization algorithms. See [7, Section 5.1].
+\end{itemize}
+
+
+
+
+
+
+
+ 
+  
+
+
+
+
+
+

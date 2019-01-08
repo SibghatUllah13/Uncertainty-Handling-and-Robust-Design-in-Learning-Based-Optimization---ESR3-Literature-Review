@@ -1,0 +1,107 @@
+
+In this chapter, We discuss the state of the art in Robust Optimization for the scenarios limited to unconstrained single-objective real parameter optimization. The work is again, a brief summary of [1] (Section 5-8) and [7]. Section 2.1 describes the goal of noisy objective functions. The next section reports some theoretical and empirical investigations for the optimization of noisy objective functions. Finally, another important case i.e. finding robust optima is discussed.   
+
+\section {Optimization and goals of noisy objective functions}
+
+A very common case in the robust optimization corresponds to the optimization of a function which produces a noisy output. This is referred to as the optimization of noisy objective functions in [1] (Section 5). Such functions can be represented as in  (2.1).
+
+\begin{equation}
+\Tilde{f}(x) = {f}(x)+h(x) 
+\end{equation} '
+
+In this relationship, the objective function is represented by some additive noise $ h(x) $ in combination with a noise free computation of $ f(x) $. The uncertainty is unbiased if the expectation $ \textbf{E}[h(x)] = 0 $ for all $ x \in R^n$.
+
+The goals of the optimization for a scenario discussed in (2.1) vary considerably. One of the common choices is the optimization of $f(x)$ without considering the effects of uncertainty  $ h(x) $ [26-27]. This might seem naive but investigations in [1] prove that it is logical in a variety of situations. For example, if we're discussing a slight change in measurement in which the measurement error is not a universally occurring phenomenon. This is since the practical goal of robust optimization does not always disagree with the goal of classical optimization. We can denote the goal of optimization with a robust function aka as the effective function in literature. Thus, the above mentioned scenario can be represented in (2.2). 
+
+\begin{equation}
+f_{R}(x) = {f}(x) 
+\end{equation} 
+
+An alternative robust function can be the optimization of the expected value of objective function. This is formalized in (2.3). This robust formalization is considerably important if the noise or the uncertainty is an intrinsic part of the optimization. 
+
+\begin{equation}
+f_{R}(x) = \textbf{E}[\Tilde{f}(x)]
+\end{equation}
+
+An interesting alternative described in [28] is to consider it a bi-objective optimization problem with the optimization of expectation in (2.3) and minimization of the variance. Thus, the resulting problem has two objective functions and both are to be optimized simultaneously. This is formalized in relationship in (2.4-2.5). An interesting future research line is to investigate this at length. 
+
+\begin{equation}
+f_{R}^1(x) = \textbf{E}[\Tilde{f}(x)] 
+\end{equation}
+\begin{equation}
+f_{R}^2(x) = \textbf{V}_{ar}[\Tilde{f}(x)] 
+\end{equation}
+
+Several other robust functions have been defined in the literature however we omit those here. The reader is steered to [1] (Section 5.1)  and [7] (Section 3.2) for further details. We move on to the next section to describe the basic techniques for the optimization of objective functions with uncertain outputs.
+
+\section {Basic Noise handling techniques}
+
+It has been reported in several studies [1] and [29-32] that Evolutionary Algorithms in general are fairly robust against noisy output. This is intuitive since a population based solution is better than a single solution in many cases. Even surprisingly, random noise can have great effect on the generalization of an algorithm in Machine Learning where it sometimes take the name of \textbf{Artificial Feature Noising} [33]. Hence, for the sake of this report, we assume that Evolutionary Algorithms in general are already superior to other methodologies to handle basic uncertainty and that uncertainty is not always bad as initially considered. 
+
+One of the most common techniques to reduce the effect of noise i.e. systematic uncertainty for the goal represented in (2.3) is Resampling aka Explicit Averaging. This simply refers to approximate the expectation in (2.3) with sample mean. We can formalize our understanding of Resampling in (2.6). 
+
+
+\begin{equation}
+\hat{f_{R}}(x) = \frac{1}{L}  \sum_{j=1}^{L}  \Tilde{f}(x)
+\end{equation}
+
+According to the law of large numbers, the sample mean   $ \frac{1}{L}  \sum_{j=1}^{L}  \Tilde{f}(x) $ in (2.6) is an unbiased estimator of expectation $ \textbf{E}[\Tilde{f}(x)] $ in (2.3). This means (2.6) will converge to (2.3) and as a consequence will reduce the noise. An obvious downside of this approach is the computational effort by a factor of $L$. 
+
+An alternative approach in Evolutionary Algorithms is to increase the population size aka Implicit averaging. It has been reported in [34-35] that the so called selection step in Genetic Algorithms will not be affected by the noise for infinite population size. For Evolution Strategies, this is more complicated as reported in [1] and [26] and does not always result in noise reduction. As taken from [26] , increasing $\mu$ in $(\mu,\lambda)-ES$ will result in lower convergence speed. The results reported in [1] (Section 5.3.2) comparing $ (\mu / \mu_{1},\lambda)-ES$ with CMA$-ES$ [36] in the presence of noise also concludes that increasing $\mu$ (by fixing $\lambda$) or vice versa decreases the convergence speed of $ (\mu / \mu_{1},\lambda)-ES$ drastically although it increases the convergence accuracy. For the case of CMA$-ES$, fixing $(\mu \approx \lambda)$ will decrease the noise level with no drastic effect on convergence speed. Another investigation in [1] (Section 5.3.3) reports that Resampling i.e. explicit averaging is more effective in noise reduction for $ (\mu / \mu_{1},\lambda)-ES$ while Implicit averaging performs better in the case of CMA$-ES$. Furthermore, CMA$-ES$ performs better than  $ (\mu / \mu_{1},\lambda)-ES$ for controlled noise experiments conducted in [1] (Section 5.3.3). It is important to note that this can very well be the bases of further empirical investigation for ESR 3 with a special focus on the most complex noise systems generally found in industrial applications. 
+
+Another alternate technique using rescaled mutations [29] and [37-38] which uses large mutations in the selection process and smaller after that intuitively seems nice considering that it does not deteriorate convergence speed. However, practically it does not reduce noise significantly [1] (Section 5.3.4) and hence has not been widely employed in applications. Another theoretically sound technique called Thresholding [39] also fails to practically work in most situations.
+
+\section {Advanced Noise handling techniques}
+
+Schemes discussed in the previous section try to minimize the effect of noise. These techniques try to improve the convergence accuracy of Evolutionary Algorithms at the cost of convergence speed. Furthermore, they don't completely negate the effect of noise. As such, advanced noise handling techniques are presented in this section that theoretically seem superior. Such techniques can be divided in two parts namely the Adaptive Averaging techniques and Meta-Modelling techniques. 
+
+Adaptive Averaging techniques try to adapt the level of noise in the optimization problem in a way that there is no waste of computational resources. Two of such techniques are called Duration Scheduling and Sample Allocation [40-41] and [1] (Section 5.4.1). Both of these techniques have limitation in that they assume the noise is Stationary (Section 1.3) and Gaussian. Another technique relying on Statistical hypothesis testing is discussed in [42-43] and 1 (Section 5.4.2). The practical results in [1] , [42-43] suggest that this technique is also not suited for complex noise situations. Yet another alternate technique called Partial order based adaptive averaging is also discussed in [1] (Section 5.4.3) and [44]. It is further reported in [1] that this scheme shows promising results on a variety of noise handling situations but needs to be further investigated in details. As such, it will be an interesting opportunity for ESR to investigate it further. Other notable work in this area includes Selection Through Racing [45],[1] (Section 5.4.4) , Rank-change based uncertainty measures [27] , [1] (Section 5.4.5) and Rank-Inversions based uncertainty measures [42] ,[1] (Section 5.4.6). 
+
+Meta-Modelling [46-48] makes another class of techniques to handle uncertainty and noise in the literature. The aim is to use the previous information available on the fitness measurements of the noisy objective functions and design an optimization model using this information. They can be further divided in different classes including Memory-based Fitness estimation [46-47] ,[1] (Section 5.5.1) and Local Regression based Fitness Estimation [48] , [1] (Section 5.5.2). Meta-modelling techniques have not been studied extensively in the literature for noise handling and provide a great opportunity for the concerned ESR to further investigate the existing methodologies and propose new ones. In the next section, we discuss Evolution Strategies to find Robust Optima.   
+
+\section {Evolution Strategies for Finding Robust Optima}
+
+Robust optimization refers to many scenarios. One of those scenarios namely the optimization of noisy objective functions has been discussed in this chapter. Yet another similar scenario namely finding the robust optima has not been discussed. Thus, this section will focus on the case of finding robust optima. The difference between the optimization of the noisy objective functions as discussed previously in this chapter and finding robust optima is indeed very minimal. In fact, authors in [7] do not differentiate clearly between the two cases as they give it a general name of Robust Optimization. In [1] however, it has been classified and studied differently. One of the possible distinction between these two scenarios is that the former namely the optimization of noisy objective functions assumes the presence of noise within the system itself while evaluating the objective functions. The latter case namely finding the robust optima specifically deals with noise in the input. Having said this, we do not think that formally there is any clear distinction between these two cases and both can be generalized as Robust Optimization as in [7]. In the remainder of this chapter, we will however try to summarize the techniques in [1] (Section 7) and [7] as we feel both are overlapping to a great extent and almost always refer to the same concept.
+
+In the case of a single-objective black-box real parameter optimization, finding robust optima refers to the optimization of objective function which is represented in (2.7) while validating the constraints in (2.8). The relationship in (2.7-2.8) are inspired from (1.3-1.6) i.e. changes in the input and design variables are both merged together in (2.7-2.8). 
+
+\begin{equation}
+opt  \rightarrow f_i(x+ \delta_{x}) \quad \quad \quad i=1,....,d
+\end{equation} 
+    
+\begin{equation}
+g_z(x+ \delta_{x}) \geq 0 \quad \quad \quad z=1,....,k
+\end{equation} 
+
+It has been mentioned in [1] and [7] that a neighbourhood $ \eta_\textbf{x}$ of the possible set of disturbances in the input $\textbf{x}$ can be defined. This neighbourhood will help us examine the behaviour of the changes in the input. Once we are able to see the implications of the corresponding neighbourhood, we can define a measure of Robustness. Indeed it has been argued in the literature that there are many such measures. We will however concern ourselves to \textbf{expected solution quality} [49-54] , \textbf{worst solution quality} [55-56] , \textbf{Threshold acceptance probability } [57] , \textbf{Performance variance} [58-59] and \textbf{Sensitivity region} [60] which are summarized and compared in [1] (Section 7.1.4). Although we will not be discussing the robustness measures for constraint functions explicitly in this report , the distinction between soft and hard constraints can be made [61]. Similarly, measures based on \textbf{Probability Theory}, \textbf{Virtual Bounds} [62] and \textbf{Transformation of objective function} are also a mainstay in literature. 
+
+Now that we understand the essence of Robust Optima and methodologies to represent robustness measures, the next logical question is how to actually use these robustness measures to find the robust optima. This refers to the algorithmic schemes to find the robust optima assuming there's a fixed robustness measure e.g. \textbf{expected solution quality} [49-54] agreed upon. In [1] (Section 7.2), such techniques have been classified with much granularity as opposed to [7] (Section 4) which focuses with less detailed classification mechanism. The work in [1] focuses on Evolutionary Algorithms with two specific implementations $ (\mu / \mu_{1},\lambda)-ES$ and CMA$-ES$. As such, the techniques to find Robust Optima in [1l labelled as \textbf{Myopic approaches}, \textbf{Single and Multi-evaluation approaches}, \textbf{Adaptive Averaging approaches}, \textbf{Archive based approaches} and \textbf{Meta-modeling approaches} are discussed in the presence of $ (\mu / \mu_{1},\lambda)-ES$ and CMA$-ES$ . A description of these techniques is provided below.
+
+\begin{itemize}
+	\item \textbf{Myopic Approach} refers to the intuition that Evolutionary Algorithms are in general fairly robust against uncertainty. This point has previously been discussed in the case of optimization for noisy objective functions (Section 2.2) and also in [1] and [29-33]. In [1] (Section 7.2.1), the experimental results conclude that in some trivial cases, Evolutionary Algorithms do not need any extra computation to find Robust Optima. 
+	
+	\item \textbf{Single and Multi-Evaluation} methods refer to the Monte Carlo techniques to approximate the \textbf{expected solution quality} with sample mean. This is in accordance with the discussion in section 2.2 for the optimization of noisy objective functions [63]. These method take the name of \textbf{Single Evaluation Mode} and \textbf{Multi Evaluation Mode} corresponding to the number of samples for evaluation of \textbf{expected solution quality}. 
+	
+	\begin{equation}
+    \hat{f_{R}}(\textbf{x}) = \frac{1}{L}  \sum_{j=1}^{L}  f(\textbf{x}+h_{i}) \quad , \quad h_{i} \sim \delta
+    \end{equation}
+    
+    (2.9) approximates the expected solution quality for a solution $\textbf{x}$. The experimental results in [1] (Section 7.2.2-7.2.4) report that these methods produce decent results but in general are not very promising to find Robust Optima using Evolutionary Algorithms.   
+	
+	\item \textbf{Adaptive Averaging Techniques} taken from Section 2.3 in the context of noisy objective functions can also be adapted to find Robust Optima. Adaptive Averaging seems intuitively more powerful than explicit averaging since it adapts the computational resources to the need of noise level [64-65]. In [65], adaptation of Evolution Strategies has been classified as Adaptive Averaging Technique which shows promising results [65] and [1] (Section 7.2.6).   
+	\item  \textbf{Archiving} [52] is another methodology to approximate the \textbf{expected solution quality} based on the weighted mean of the quality of the solution at a point with the measures of solution qualities of its neighbours. It has been concluded in [1] (Section 7.2.7) with empirical investigations that Archive based approach is impressive. 
+	
+	\item \textbf{Meta-Modeling Techniques} [25] are very similar to Archive based approaches. The aim is to use a rough local model as a tool to approximate the behaviour of the objective function and thus fulfill the goal of Robust Optimization defined by a measure. A thorough empirical investigation in [1] (Section 7.2.8) reports that Meta-Modeling is one of the very promising areas within Evolution Strategies to find Robust Optima.
+	
+\end{itemize}
+
+\section {Robust Optima beyond Evolution Strategies}
+
+In [7], several techniques to find Robust Optima are reviewed. Some of these techniques include \textbf{Robust Optimization with Mathematical Programming} [66-68] , \textbf{Simulation Optimization} [6], \textbf{Reliability based Optimization} [10-12] , \textbf{Sensitivity Robustness approach} [69]  , \textbf{Monte-Carlo Approaches} [10] , \textbf{Meta-Model Approaches} [23], [25] and \textbf{Evolutionary Algorithms} [1] (Section 4). It has been concluded in [7] that direct search methods such as \textbf{Evolution Strategies} , \textbf{Monte-Carlo Approaches} and \textbf{Meta-Modeling techniques} are intuitively a good start to solve the problem of Robust Optimization. In the next chapter, we will discuss the compatibility of learning modules namely AM3, AM4, AM5 and AM6 with ESR's project with focus on WP 2.3.  
+
+
+
+
+
+
+

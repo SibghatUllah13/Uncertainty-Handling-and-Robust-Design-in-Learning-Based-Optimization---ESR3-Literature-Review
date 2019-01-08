@@ -1,0 +1,395 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{bm}
+\usepackage[ampersand]{easylist}
+\usepackage{subcaption}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[nottoc]{tocbibind}
+\usepackage{biblatex}
+\addbibresource{references.bib}
+\graphicspath{ {images/} }
+
+\title{
+	{Uncertainty Handling and Robust Design in Learning-based Optimization
+	\\
+	(A technical report)}
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	{\includegraphics [scale=0.5] {chapters/university.png}}
+    }
+   \author{Sibghat Ullah, ESR 3}
+   \date{\today}
+   \begin{document}
+   \maketitle
+    \chapter*{Declaration}
+
+This technical report is submitted to the supervisory board of EU-ITN project ECOLE (Experienced based optimization, learning to optimize) by ESR 3 who is enrolled in Leiden University. This report reviews the fundamentals in the literature on Uncertainty handling and robust design optimization. The purpose of the report is to provide an overview on existing literature in the area. Another important objective of this report is to investigate the compatibility of learning material especially AM3, AM4, AM5 and AM6 with the ESR's project. This report is ESR's summary on the investigations and work done by other researchers as specified in the bibliography and acknowledgment. This report contains 31 pages including tables, equations and figures. An important thing to note is that the ESR's project comprises of three phases namely Robust Design Optimization (see WP 2.3), Big Data Analytics with Robust Representation (see WP 3.2) and Robust and Online Learning (see WP 3.4) as presented in ECOLE proposal. The focus of this report however will be on the first phase, since the second and third phases have to be investigated during ESR's secondment at NEC-laboratories Europe and Honda-research-institute Europe respectively. Furthermore, Section 2 (State-of-the-art) is optional . This is to comply with the word-count limit (2700-3300 words) as described in ECOLE training plan.  
+\\
+\\
+\\
+\\
+\\
+\author{Sibghat Ullah} \\
+\date{\today}
+
+
+
+
+\chapter*{Acknowledgements}
+
+I would first like to thank my Promoter Professor Thomas Bäck. His guidance, vision and trust meant a great deal to me. I would also like to thank my supervisor Dr. Hao Wang for his valuable advice, continuous overseeing and time throughout the process of writing this report. Lastly, I feel grateful to ESR 4 and 5 for their advice on the report. Thank you all. 
+\\
+\\
+\\
+\\
+\\
+\author{Sibghat Ullah}\\
+\date{\today}
+
+\chapter*{Abstract}
+
+\textbf{Uncertainties}  and noise comprise one of the most challenging area in the optimization literature. They're encountered frequently in real-world optimization problems. Due to different reasons, different types of uncertainties can arise. This report focuses on some of the most promising work in the field of uncertainty handling and robust design optimization. More specifically, We formulate the existing understanding of uncertainty handling and robust design optimization. We state different types of uncertainty modelling techniques which are common in the optimization literature. Next, we will report some basic methodologies to minimize the effects of uncertainties and the approaches to find robust design optima. The relationship of this research project with AM3, AM4,AM5 and AM6 will also be discussed in the final section of the document. Finally, some open research questions and future research line would be proposed. 
+
+\tableofcontents
+
+\chapter{Introduction}
+\input{chapters/introduction}
+\chapter{State of the Art}
+\input{chapters/state}
+\chapter{Research and Future}
+\input{chapters/results}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{Elman}
+\textbf{J.Kruisselbrink}.
+\textit{Evolution Strategies for Robust Optimization}. 
+PhD Dissertation, Leiden University, The Netherlands, 2012.
+
+\bibitem{Vanishing Gradient Problem}
+\textbf{K.Deb, A.Pratap, S.Agarwal and T.Meyarivan}.
+\textit{A fast and elitist multiobjective genetic algorithm: NSGA-II}. 
+IEEE Trans. Evol. Comput., vol. 6, no. 2, pp. 182-197, 2002.
+
+\bibitem{BPTT} 
+\textbf{E.Zitzler,M.Laumanns and L.Thiele}.
+\textit{SPEA2: Improving the Strength Pareto Evolutionary Algorithm, 2001.} 
+ 
+\bibitem{Clipping}
+\textbf{N.Beume,B.Naujoks and M.Emmerich}.
+\textit{SMS-EMOA: Multiobjective selection based on dominated hypervolume}. 
+European Journal of Operational Research Volume 181, Issue 3, 16 September 2007, Pages 1653-1669.
+
+\bibitem{C}
+\textbf{M.Emmerich and A.H.Deutz}.
+\textit{A tutorial on multiobjective optimization: fundamentals and evolutionary methods}. 
+Natural Computing, Volume 17, Issue 3, pp 585–609 https://doi.org/10.1007/s11047-018-9685-y, 2018.
+
+\bibitem{EE}
+\textbf{S.Andradottir}.
+\textit{A review of simulation optimization techniques}. 
+Proceedings of the 1998 Winter Simulation
+Conference, IEEE, Piscataway, NJ, 1998, pp. 151–158.
+
+\bibitem{EEE}
+\textbf{ H.G.Beyer and B.Sendhoff}.
+\textit{Robust optimization – A comprehensive survey}. 
+ Computer
+Methods in Applied Mechanics and Engineering Volume 196, Issues 33–34, 1 July 2007, Pages 3190-3218 2007.
+
+\bibitem{EAE}
+\textbf{D.Jung and B.Lee}.
+\textit{Development of a simple and efficient method for robust optimization},2002.
+
+\bibitem{Ea}
+\textbf{B.Sudret and A.D.Kiureghian}.
+\textit{Stochastic Finite Element Methods and Reliability A State-of-the-Art Report},2000.
+
+\bibitem{Eaaa}
+\textbf{H.Agarwal}.
+\textit{Reliability based design optimization: Formulations and methodologies},Ph.D. Thesis, University of Notre Dame, South Bend, IN, 2004.
+
+\bibitem{Eaaaaa}
+\textbf{R.Rackwitz}.
+\textit{ Reliability analysis – a review and some perspectives}, Structural Safety 23 365–395,2001.
+
+\bibitem{Eaaaaaa}
+\textbf{J.Martin and T.Simpson}.
+\textit{ A Monte Carlo method for reliability-based design optimization},Tech. Rep. 2006-2146, American Institute of Aeronautics and Astronautics AIAA, 2006.
+
+\bibitem{Eaaaaaaa}
+\textbf{F.Campos,J.Villar and M.Jimenez}.
+\textit{Robust solutions using fuzzy chance constraints}, Engrg.Optim. 38 (6) (2006) 627–645, 2006.
+
+\bibitem{Eaaaaaaaaa}
+\textbf{S.Chen}.
+\textit{Comparing probabilistic and fuzzy set approaches for design in the presence of uncertainty},  Ph.D. thesis, Virginia Polytechnic Institute and State University, Blacksburg, VA, 2000.
+
+\bibitem{Eaaaaaaaaaaa}
+\textbf{M.Arakawa, H.Yamakawa and H.Ishikawa}.
+\textit{ Robust design using fuzzy numbers with
+intermediate variables}, 3rd World Congress of Structural and Multidisciplinary Optimization, 1999.
+
+\bibitem{Eaaaaaaaaaaaa}
+\textbf{M.E.Pate-Cornell}.
+\textit{Uncertainties in Risk Analysis: Six Levels of Treatment.} , Reliability Engineering and System Safety, 54(2-3):95–111, November 1996.
+
+\bibitem{Eaaaaaaaaaaaaa}
+\textbf{A.Der Kiureghian and O.Ditlevsen}.
+\textit{ Aleatory or Epistemic? Does it matter ?} ,Structural Safety, 31(2):105–112, March 2009.
+
+\bibitem{D1}
+\textbf{A.Eiben, T.Bäck, M.Schoenauer and H.P.Schwefel}.
+\textit{Parallel Problem Solving from Nature}, vol. 5, SpringerVerlag, Heidelberg, 1998, pp. 119–128.
+
+\bibitem{D2}
+\textbf{W.Chen, M.Wiecek and J.Zhang}.
+\textit{Quality utility – a compromise programming approach to robust design}, ASME J. Mech. Des. 121 (2) (1999) 179–187.
+
+\bibitem{D3}
+\textbf{N.Lagaros, V.Plevris and M.Papadrakakis}.
+\textit{Multi-objective design optimization using
+cascade evolutionary computation}, Comput. Methods Appl. Mech. Engrg. 194 (2005) 3496–3515.
+
+\bibitem{D4}
+\textbf{X.Du and W.Chen}.
+\textit{ Towards a better understanding of modeling feasibility robustness in engineering design},ASME J. Mech. Des. 122 (2) (2000) 385–394.
+
+\bibitem{D5}
+\textbf{M.Papadrakakis, N.Lagaros and V.Plevris}.
+\textit{ Design optimization of steel structures
+considering uncertainties},Engrg. Struct. 27 (9) (2005) 1408–1418.
+
+\bibitem{D6}
+\textbf{M.Fu}.
+\textit{Optimization for simulation: theory vs. practice}, INFORMS J. Comput. 14 (2002) 192–215.
+
+\bibitem{D7}
+\textbf{K.H.Lee, G.J.Park and W.S.Joo}.
+\textit{A general robust optimization using the kriging-based approximation method},  Proceedings of the
+6th World Congress on Structural and Multidisciplinary Optimization (WCSMO6), ISSMO,Rio de Janeiro, 2005. 
+
+\bibitem{D8}
+\textbf{Y.Jin}.
+\textit{A comprehensive survey of fitness approximation in evolutionary computation}, Soft Comput. J. 9 (1) (2005) 3–12.
+
+\bibitem{D9}
+\textbf{U.Hammel and T.Bäck}.
+\textit{Evolution Strategies on Noisy Functions, How to 
+Improve Convergence Properties}, In Parallel Problem Solving from Nature (PPSN III), volume 866 of LNCS, pages 159–168. Springer, 1994. 
+
+\bibitem{D10}
+\textbf{N.Hansen, A.S.P.Niederberger, L.Guzzella and P. Koumoutsakos}.
+\textit{ A Method for Handling Uncertainty in Evolutionary Optimization with an Application to Feedback Control of Combustion}, IEEE Transactions on Evolutionary Computation, 13(1):180–197, February 2009.
+
+\bibitem{D11}
+\textbf{Y.Jin and B.Sendhof}.
+\textit{Trade-off between Performance and Robustness:
+An Evolutionary Multiobjective Approach}, In: Fonseca C.M., Fleming P.J., Zitzler E., Thiele L., Deb K. (eds) Evolutionary Multi-Criterion Optimization. EMO 2003. Lecture Notes in Computer Science, vol 2632. Springer, Berlin, Heidelberg.
+
+\bibitem{D12}
+\textbf{H.G.Beyer}.
+\textit{Evolutionary Algorithms in Noisy Environments: Theoretical Issues and Guidelines for Practice}, Computer Methods in Applied Mechanics and Engineering, 186(2-4):239–267, June 2000.
+
+
+\bibitem{D13}
+\textbf{V.Heidrich Meisner}.
+\textit{Evolutionary Direct Policy Search in Noisy Environments}, PhD thesis, University of Bochum, 2011.
+
+\bibitem{D14}
+\textbf{U.Hammel and T.Bäck}.
+\textit{Evolution Strategies Applied to Perturbed Objective Functions},In IEEE Congress on Evolutionary Computation (CEC 1994), pages 40–45. IEEE Press, 1994.
+
+\bibitem{D15}
+\textbf{S.Meyer-Nieberg and H.G.Beyer}.
+\textit{Why Noise May Be Good: Additive Noise
+on the Sharp Ridge.},In Genetic and Evolutionary Computation Conference (GECCO 2008), pages 511–518, 2008. 
+
+\bibitem{D16}
+\textbf{S.Wager, S.Wang and P.Liang}.
+\textit{Dropout Training as Adaptive Regularization},arXiv:1307.1493v2 , 2013. 
+
+\bibitem{D17}
+\textbf{J.M.Fitzpatrick and J.J.Grefenstette}.
+\textit{Genetic Algorithms in Noisy Environments}, Machine Learning, 3:101–120, October 1988.
+
+\bibitem{D18}
+\textbf{B.L.Miller and D.E.Goldberg}.
+\textit{Genetic Algorithms, Selection Schemes and the
+Varying Effects of Noise}, Evolutionary Computation, 4:113–131, June 1996.
+
+\bibitem{D19}
+\textbf{N.Hansen and A.Ostermeier}.
+\textit{Adapting Arbitrary Normal Mutation Distributions in Evolution Strategies: The Covariance Matrix Adaptation}, IEEE Congress on Evolutionary Computation (CEC 1996), pages 312–317. IEEE Press, 1996.
+
+\bibitem{D20}
+\textbf{I.Rechenberg}.
+\textit{Evolutionstrategie ’94. Frommann-Holzboog, 1994}.
+
+\bibitem{D21}
+\textbf{H.G.Beyer}.
+\textit{Mutate Large, but Inherit Small! On the Analysis of Rescaled Mutations in (1,$\lambda$)-ES with Noisy Fitness Data} In Parallel Problem Solving
+from Nature (PPSN V), volume 1498 of LNCS, pages 109–118. Springer-Verlag, 1998.
+
+\bibitem{D22}
+\textbf{S.Markon, O.Markon, D.V.Arnold, T.Bäck, T. Beielstein and H.G.Beyer}.
+\textit{Thresholding — A Selection Operator for Noisy ES} In Congress on Evolutionary Computation (CEC’01), pages 465–472. IEEE Press, 2001.
+
+\bibitem{D23}
+\textbf{A.N.Aizawa and B.W.Wah}.
+\textit{Dynamic Control of Genetic Algorithms in a Noisy
+Environment} , In Proceedings of the Fifth International Conference on Genetic Algorithms, pages 48–55. Morgan Kaufman, 1993.
+
+\bibitem{D24}
+\textbf{A.N.Aizawa and B.W.Wah}.
+\textit{Scheduling of Genetic Algorithms in a Noisy
+Environment} , Evolutionary Computation, 2(2):97–122, June 1994.
+
+\bibitem{D25}
+\textbf{J.Kruisselbrink, M.Emmerich, and T.Bäck}.
+\textit{On the Limitations of Adaptive Resampling Using the Student’s t-Test in Evolution Strategies} , In Genetic and Evolutionary Computation Conference (GECCO 2009), pages 2649–2656. ACM, 2009.
+
+\bibitem{D26}
+\textbf{E.Cantu'Paz}.
+\textit {Adaptive Sampling for Noisy Problems} , In Genetic and Evolutionary Computation Conference (GECCO 2004), pages 947–958. ACM, 2004.
+
+\bibitem{D27}
+\textbf{G.Rudolph}.
+\textit{A Partial Order Approach to Noisy Fitness Functions} , In IEEE Congress on Evolutionary Computation (CEC 2001), pages 318–325. IEEE Press, 2001.
+
+\bibitem{D28}
+\textbf{V.Heidrich-Meisner and C.Igel}.
+\textit{Hoeffding and Bernstein Races for Selecting
+Policies in Evolutionary Direct Policy Search} , In Proceedings of the 26th Annual International Conference on Machine Learning, ICML ’09, pages 401–408. ACM, 2009.
+
+\bibitem{D29}
+\textbf{Y.Sano and H.Kita}.
+\textit{Optimization of Noisy Fitness Functions by Means of Genetic Algorithms Using History of Search} , In Parallel Problem Solving from Nature (PPSN VI), volume 1917 of LNCS, pages 571–580. Springer, 2000.
+
+\bibitem{D30}
+\textbf{Y.Sano and H.Kita}.
+\textit{Optimization of Noisy Fitness Functions by Means of Genetic Algorithms Using History of Search with Test of Estimation.} , In IEEE Congress on Evolutionary Computation (CEC 2002), pages 360–365. IEEE Press, 2002.
+
+\bibitem{D31}
+\textbf{J.Branke, C.Schmidt, and H.Schmeck}.
+\textit{Efficient Fitness Estimation in Noisy
+Environments.} , In Genetic and Evolutionary Computation Conference (GECCO 2001), pages 243–250, 2001.
+
+\bibitem{D32}
+\textbf{S.Tsutsui and A.Ghosh}.
+\textit{ Genetic Algorithms with a Robust Solution Searching Scheme.} , IEEE Transactions on Evolutionary Computation, 1(3):201–208, September 1997.
+
+\bibitem{D33}
+\textbf{D.Wiesmann, U.Hammel, and T.Bäck}.
+\textit{Robust Design of Multilayer 
+Optical Coatings by means of Evolutionary Algorithms} , IEEE Transactions on Evolutionary Computation, 2(4):162–167, November 1998. 
+
+\bibitem{D34}
+\textbf{S.Tsutsui}.
+\textit{ A Comparative Study on the Effects of Adding Perturbations to Phenotypic Parameters in Genetic Algorithms with a Robust Solution Searching Scheme} , In IEEE Systems, Man, and Cybernetics Conference (SMC 1999), pages 585–591, 1999.
+
+\bibitem{D35}
+\textbf{J.Branke}.
+\textit{  Creating Robust Solutions by Means of Evolutionary Algorithms} , In Parallel Problem Solving from Nature (PPSN V), volume 1498 of LNCS, pages 119–128. Springer-Verlag, 1998.
+
+\bibitem{D36}
+\textbf{J.Branke}.
+\textit{Reducing the Sampling Variance when Searching for Robust Solutions} ,  In Genetic and Evolutionary Computation Conference (GECCO 2001), pages 235–242. Morgan Kaufmann, 2001.
+
+\bibitem{D37}
+\textbf{S.Tsutsui and A.Ghosh}.
+\textit{Effects of Adding Perturbations to Phenotypic
+Parameters in Genetic Algorithms for Searching Robust Solutions} ,  In Advances in Evolutionary Computing: Theory and Applications, pages 351–365. SpringerVerlag, 2003.
+
+\bibitem{D38}
+\textbf{S.Tsutsui and A.Ghosh}.
+\textit{Inverse Multi-Objective Robust Evolutionary
+Design Optimization in the Presence of Uncertainty} , In Genetic and Evolutionary Computation Conference (GECCO 2005), pages 55–62. ACM, 2005.
+
+\bibitem{D39}
+\textbf{Y.S.Ong,P.B.Nair and K.Y.Lum}.
+\textit{Max-Min Surrogate-Assisted Evolutionary
+Algorithm for Robust Design} , IEEE Transactions on Evolutionary Computation, 10(4):392–404, August 2006.
+
+\bibitem{D40}
+\textbf{H.G.Beyer and B.Sendhoff}.
+\textit{Functions with Noise-induced Multi-Modality:
+A Test for Evolutionary Robust Optimization — Properties and Performance Analysis.} , IEEE Transactions on Evolutionary Computation, 10(5):507–526, October 2006. 
+
+\bibitem{D41}
+\textbf{D.H.Jung and B.C.Lee}.
+\textit{Development of a Simple and Efficient Method
+for Robust Optimization.} , International Journal for Numerical Methods in Engineering, 53(9):2201–2215, March 2002. 
+
+\bibitem{D42}
+\textbf{Y.S.Ong, P.B.Nair, and K.Y.Lum}.
+\textit{Max-Min Surrogate-Assisted Evolutionary
+Algorithm for Robust Design.} , IEEE Transactions on Evolutionary Computation, 10(4):392–404, August 2006. 
+
+\bibitem{D43}
+\textbf{C.Barrico and C.H.Antunes}.
+\textit{Robustness Analysis in Multi-Objective
+Optimization Using a Degree of Robustness Concept.} ,  In IEEE Congress on Evolutionary Computation (CEC 2006). IEEE Press, July 2006.
+
+\bibitem{D44}
+\textbf{N.J.Samsatli,L.G.Papageorgiou and N.Shah}.
+\textit{Robustness Metrics for Dynamic Optimization Models Under Parameter Uncertainty.} ,AIChE Journal, 44(9):1993–2006, April 1998.
+
+\bibitem{D45}
+\textbf{P.N.Koch, R.J.Yang, and L.Gu}.
+\textit{Design for Six Sigma Through Robust
+Optimization.} ,Structural and Multidisciplinary Optimization, 26(3-4):235–248, January 2004. 1998.
+
+\bibitem{D46}
+\textbf{S.Tsutsui, A.Ghosh, and Y.Fujimoto}.
+\textit{A Robust Solution Searching Scheme
+in Genetic Search.},  In Parallel Problem Solving from Nature (PPSN IV), volume 1141 of LNCS, pages 543–552. Springer-Verlag, 1996.
+
+\bibitem{D47}
+\textbf{J.Kruisselbrink,E.Reehuis,A.Deutz,T.Bäck and M.Emmerich}.
+\textit{Using the Uncertainty Handling CMA-ES for Finding Robust Optima.},  In Genetic and Evolutionary Computation Conference (GECCO 2011). ACM, 2011.
+
+\bibitem{D48}
+\textbf{H.G.Beyer and B.Sendhoff}
+\textit{Evolution Strategies for Robust Optimization.},  In IEEE Congress on Evolutionary Computation (CEC 2006), pages 1346–1353. IEEE Press, 2006.
+
+\bibitem{D49}
+\textbf{A.Ben-Ta and A.Nemirovski}.
+\textit{Robust convex optimization.},  Math.
+Oper. Res. 23 (4) (1998) 769–805.
+
+\bibitem{D50}
+\textbf{A.Ben-Ta and A.Nemirovski}.
+\textit {Robust optimization – methodology and application.}, Math. Programm. 92 (3) (2002) 453–480.
+
+\bibitem{D51}
+\textbf{A.Ben-Ta and A.Nemirovski}.
+\textit {Robust solutions of uncertain quadratic and conic-quadratic problems.},  SIAM J. Optim. 13 (2) (2002) 535–560.
+
+\bibitem{D52}
+\textbf{J.Darlington, C.C.Pantelides, B.Rustem and B.Tanyi}.
+\textit {Algorithms for optimal decisions under uncertainty.},in: 4th International Parallel
+Computing Workshop, PCW’95, Imperial College/Fujitsu Parallel Computing Research Centre, London, 1995, pp. 137–157
+
+\bibitem{D53}
+\textbf{M.Wright}.
+\textit {Direct search methods: once scorned, new respectable.},in: D. Griffiths, G. Watson (Eds.), Numerical Analysis, Addison Wesley Longman Limited, Redwood, 1995, pp. 191–208.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,94 @@
+
+In this chapter, I discuss the basics necessary to understand the report. Uncertainty and noise are discussed inter-changeably to describe the same concept i.e. unexpected changes in the optimization throughout the first chapter. In section 1.1 , we discuss black-box optimization. Next, we describe the various sources of uncertainty in the black-box optimization (See figure 1.2). We also move on to draw an informal understanding of uncertainty vs noise and Aleatory vs Epistemic uncertainty types. Finally, a brief summary of methodologies to represent various uncertainty types are discussed in section 1.4. The first chapter of this report can be though of as a rough summary of [1] (Section 1-3) and that of the problem definition.
+ 
+\section{Black-box Optimization}
+
+Classical view on optimization concerns the best solution among a set of feasible solutions where the best refers to some criterion. Throughout this report, we focus on the scenario of black-box optimization in which we believe to have no or limited knowledge regarding the internal dynamics of the system. An example of a black-box system is provided in figure 1.1.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{chapters/BBS.png}
+\caption{An example of a generalized black-box model of a system with some arbitrary input and some arbitrary output.}
+\end{figure}
+
+Here, we're not assuming any particularities on $\textbf{x}$ and $\textbf{y}$. Thus, the black-box optimization can be thought of finding the configuration of input setting $\textbf{x}$ that will yield the best possible value of $\textbf{y}$. The figure 1.1 does not explain the constraints on $\textbf{x}$. Furthermore, the real-world optimization problems can have multiple conflicting objective functions to be optimized simultaneously. Hence, a more formal understanding is required to grasp the concept of black-box optimization. 
+
+A constrained, multi-objective black-box optimization problem can be formulated as optimizing a set of functions \textbf{F} within a search space \textbf{X} while satisfying a set of constraint functions \textbf{G}. 
+
+\begin{equation}
+\textbf{F} = ({f}_1,{f}_2,.....,{f}_d) 
+\end{equation}
+
+\begin{equation}
+\textbf{G} = ({g}_1,{g}_2,.....,{g}_k)
+\end{equation}
+
+Each objective function $f_{i}$ in (1.1) is a mapping from an arbitrary input space \textbf{X} to a scalar in $\mathbb{R}$. Similarly, each constraint function $g_{z}$ in (1.2) is a mapping from an arbitrary input space \textbf{X} to a scalar in $\mathbb{R}$. 
+
+Multi-objective optimization (MOO) has been a focus of research in the last decade or so. Many different algorithms have been proposed to solve multi-objective optimization problems with most notable work presented in [2-4]. A latest survey on multi-objective optimization is presented in [5]. However, for the remainder of this report, we will be focusing on single-objective unconstrained optimization problems in which $\textbf{G}=\emptyset$ and $ \textbf{F}$ has only one element. This is since the existing work largely focuses on the most trivial cases namely the unconstrained single-objective optimization problem. However, it must be stated that the goal of the ESR's project involves extending the conceptual understanding of existing literature to the cases of multi-objective constrained optimization problems. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{chapters/uncertainty.png}
+\caption{An example of a black-box model of a system with color representing areas of the system where noise can arise.}
+\end{figure}
+
+
+\section{Uncertainty types}
+ Too often in the optimization literature, theoretical understanding hardly describes the complete picture of real-world issues. Out of such unexplained issues, we only focus on uncertainty and noise. Here, Uncertainty and noise refer to the same concept i.e. unexpected changes in the system. These changes can happen in the input, output or within the system itself as presented in figure 1.2. We can refer to these changes as type A, type B, type C, type D and type E uncertainties as taken from [1] and [7]. It is important to understand that type D and E uncertainties are considered to be the same in [7]. 
+ 
+ \begin{itemize}
+	\item Type A uncertainties refers to the fact that the design variables cannot be controlled with unlimited precision. This can happen due to the economies of manufacturing or the limitation of the state-of-the-art. The effect of the imprecision of the design variables on the output of an arbitrary objective function and a constraint function within a black-box system is formulated in (1.3) and (1.4) respectively.
+	\begin{equation}
+    \Tilde{f}_i(x) = {f}_i(x+ \delta_{x}) \quad, i=1,....,d
+    \end{equation} 
+    
+    \begin{equation}
+    \Tilde{g}_z(x) = {g}_z(x+ \delta_{x}) \quad, z=1,....,k
+    \end{equation} 
+	
+	\item Type B uncertainties refers to the fact that the operational (or environmental) conditions fluctuate or are known only to a certain extent. This means that our existing knowledge about the system is limited and as a consequence, we're not informed completely about the search space. In the classical optimization as depicted in figure 1.1, environmental conditions are treated as constants however, in practice that's hardly the case. We thus extend the output dependency to the environmental variables set $ \textbf{C}$ where $ \alpha \in \textbf{C} $ represents an individual variable. The effect of such variables on the output and the constraints is represented in (1.5) and (1.6).
+	\begin{equation}
+    \Tilde{f}_i(x,\alpha) = {f}_i(x,\alpha+ \delta_{\alpha}) \quad,  i=1,....,d
+    \end{equation} 
+    
+    \begin{equation}
+    \Tilde{g}_z(x,\alpha) = {g}_z(x,\alpha+ \delta_{\alpha}) \quad , z=1,....,k
+    \end{equation} 
+	
+	\item Type C uncertainties refers to the fact that the output of the real-world system or of the (simulation) model is noisy. Approximation models replace the real-world system within the optimization loop. This type of uncertainty is further elaborated in [6]. Noise in the output can be modeled within formulations of the objective functions as:
+	
+	\begin{equation}
+    \Tilde{f}_i(x) = {f}_i(x)+h_{{f}_i}(x) , i=1,....,d
+    \end{equation} 
+    
+    \begin{equation}
+    \Tilde{g}_z(x) = {g}_z(x)+h_{{g}_z}(x), z=1,....,k
+    \end{equation} 
+    
+    where $h_{{f}_i}(x)$ and $h_{{g}_z}(x)$ are random variables representing the propagation of the uncertainty to the objective and constraint functions.  
+	\item Type D uncertainties refers to the vagueness in the preference of objective functions $ \textbf{F}$ especially when there's a trade-off between the objectives.
+	\item Type E uncertainties refers to the vagueness in the set of constraint functions $ \textbf{G}$. This type of uncertainties can be modelled using fuzzy logic [13-15].
+	
+\end{itemize}
+
+In [8], type A and B uncertainties are considered identical and are thought to be related with the concept of \textbf{Sensitivity Robustness}. Type D and E are often considered to be the same in the sense that they do not directly affect the output of the black-box system in figure 1.1. Instead, they influence the search space \textbf{X}. Type E uncertainty is also related to another important concept known as reliability based robustness. This means that the black-box system must also respect the neighbourhood of the feasible search-space since the constraint boundary is subject to changes. Examples of the reliability based design are discussed at great length in [9-12]. 
+
+\section{Uncertainty vs Noise}
+
+A clear distinction between uncertainty and noise has not been made in the literature. Thus, we have to rely on an informal understanding of both concepts. The same is also true for Aleatory and Epistemic uncertainties [17]. The most common idea for aleatory uncertainty is that it is fundamentally irreducible, completely random and almost certainly unavoidable. Epistemic uncertainty on the other hand is in principle due to the lack of understanding, knowledge or information on the optimization problem. The effect of this kind of uncertainty can be minimized by representing the optimization problem in another way or with more feedback from the domain expert or with more data. Thus, although it is an integral part of the problem, the designer can solve this type of uncertainty. We can also refer the term uncertainty to the aleatory type and noise to the epistemic type although it must be stated that it is by no means a formal and clear understanding. This view is also popular in engineering applications [16-17].
+
+Another important classification within epistemic uncertainty i.e. noise is if the noise is stationary or non-stationary. Stationary noise is thought to be in the system when its distribution remains the same throughout the time/space domain. Non-stationary noise is when the noise or uncertainty distribution changes with time/space domain. This distinction is borrowed from the existing understanding in Signal-Processing and Time-Series analysis. 
+
+\section {Modelling Uncertainty}
+
+Thus far, we've discussed the basics of uncertainty and noise i.e. unexpected changes in different parts of the black-box system as represented in figure (1.2). The next interesting question was to categorize the uncertainty in to different types for a clearer understanding. With that, we also defined an informal distinction between uncertainty and noise and between Aleatory and epistemic uncertainties. Now that we've more understanding about uncertainty and optimization, the next logical question is how to model them. In this section, we'll be briefly discussing this question.
+
+Mathematically, uncertainty can be represented  \textbf{Possibilistically}, \textbf{Deterministically} and \textbf{Probabilistically}. This simply means that using Fuzzy logic based on Dempster Shafer Theory of Evidence, we can model some of the above uncertainty types (A-E). This involves representing uncertainty type (A-E) by membership functions whose value ranges from 0-1. Example of such work is presented in [13-15]. Another way of representing uncertainty is Deterministically. This means that we assume the domain in which uncertainties can arise are already known and fixed. However, the corresponding probabilities for such neighbourhood are unknown. Examples of such work are presented in [10] and [18-22]. A third way of modelling uncertainty in above scenario is by building a probabilistic model around the part of the system where uncertainty can arise. Here, we assume to know about the domain of uncertainty i.e. neighbourhood of search space and the probability distribution around that neighbourhood. Thus, we can see the effect of such uncertainties on the optimization problem almost directly. This line of work has been discussed in [1],[7],[12] and [23-25].
+
+While we've informally discussed the idea of how to model uncertainty using three main approaches, the work discussed here is merely oversimplification of much more detailed theoretical frame works. As such, the reader is directed to visit [7] (see Section 3) for a thorough understanding. In the next chapter, we'll summarize the existing literature on uncertainty handling. 
+
+
+
+
+
